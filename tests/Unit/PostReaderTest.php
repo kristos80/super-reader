@@ -18,6 +18,8 @@ final class PostReaderTest extends SuperReaderTester {
 		$this->assertEquals($data, $array);
 		$this->assertEquals((object) $data, $object);
 
+		$this->assertNull($this->superReader->getFromInput("php://input"));
+
 		unlink($input);
 	}
 
