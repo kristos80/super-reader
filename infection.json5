@@ -9,6 +9,10 @@
     "@default": true
   },
   "logs": {
-    "text": "infection.log"
+    "text": "infection.log",
+    "stryker": {
+      "badge": "master"
+    },
+    github: true
   }
 }
