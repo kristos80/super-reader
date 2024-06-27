@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace Kristos80\SuperReader;
 
-/**
- *
- */
 final class SuperReader implements SuperReaderInterface {
 
 	/**
