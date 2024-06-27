@@ -1,0 +1,10 @@
+/vendor
+!.gitkeep
+.env
+.dev.env
+.idea
+herd.php-xdebug.ini
+infection.html
+summary.json
+clover.xml
+infection.log
