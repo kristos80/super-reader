@@ -19,6 +19,13 @@
       "Kristos80\\SuperReader\\Tests\\": "tests"
     }
   },
+  "scripts": {
+    "bc-check": "vendor/bin/roave-backward-compatibility-check",
+    "release:patch": "vendor/bin/conventional-changelog --patch --commit",
+    "release:minor": "vendor/bin/conventional-changelog --minor --commit",
+    "release:major": "vendor/bin/conventional-changelog --major --commit",
+    "release:rc": "vendor/bin/conventional-changelog --rc --commit"
+  },
   "version": "0.0.1",
   "config": {
     "allow-plugins": {
