@@ -26,7 +26,7 @@
         "release:major": "vendor/bin/conventional-changelog --major --commit",
         "release:rc": "vendor/bin/conventional-changelog --rc --commit"
     },
-    "version": "0.0.3",
+    "version": "0.1.0",
     "license": [
         "MIT"
     ],
