@@ -1,36 +1,36 @@
 {
-  "name": "kristos80/super-reader",
-  "require": {
-    "php": ">=8.2"
-  },
-  "require-dev": {
-    "marcocesarato/php-conventional-changelog": "^1",
-    "pestphp/pest": "^2",
-    "phpmd/phpmd": "^2",
-    "vlucas/phpdotenv": "^5"
-  },
-  "autoload": {
-    "psr-4": {
-      "Kristos80\\SuperReader\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Kristos80\\SuperReader\\Tests\\": "tests"
-    }
-  },
-  "scripts": {
-    "bc-check": "vendor/bin/roave-backward-compatibility-check",
-    "release:patch": "vendor/bin/conventional-changelog --patch --commit",
-    "release:minor": "vendor/bin/conventional-changelog --minor --commit",
-    "release:major": "vendor/bin/conventional-changelog --major --commit",
-    "release:rc": "vendor/bin/conventional-changelog --rc --commit"
-  },
-  "version": "0.0.1",
-  "config": {
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
+    "name": "kristos80/super-reader",
+    "require": {
+        "php": ">=8.2"
     },
-    "sort-packages": true
-  }
+    "require-dev": {
+        "marcocesarato/php-conventional-changelog": "^1",
+        "pestphp/pest": "^2",
+        "phpmd/phpmd": "^2",
+        "vlucas/phpdotenv": "^5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kristos80\\SuperReader\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kristos80\\SuperReader\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "bc-check": "vendor/bin/roave-backward-compatibility-check",
+        "release:patch": "vendor/bin/conventional-changelog --patch --commit",
+        "release:minor": "vendor/bin/conventional-changelog --minor --commit",
+        "release:major": "vendor/bin/conventional-changelog --major --commit",
+        "release:rc": "vendor/bin/conventional-changelog --rc --commit"
+    },
+    "version": "0.0.1",
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "sort-packages": true
+    }
 }
