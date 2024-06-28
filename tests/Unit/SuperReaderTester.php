@@ -7,9 +7,6 @@ use Kristos80\SuperReader\SuperReader;
 use Kristos80\SuperReader\Tests\TestBase;
 use Kristos80\SuperReader\SuperReaderInterface;
 
-/**
- *
- */
 abstract class SuperReaderTester extends TestBase {
 
 	/**
