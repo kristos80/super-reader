@@ -63,6 +63,11 @@ interface SuperReaderInterface {
 	/**
 	 *
 	 */
+	public const CAST_BOOLEAN = "boolean";
+
+	/**
+	 *
+	 */
 	public const CAST_ARRAY = "array";
 
 	/**
