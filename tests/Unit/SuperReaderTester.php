@@ -5,6 +5,7 @@ namespace Kristos80\SuperReader\Tests\Unit;
 
 use Kristos80\SuperReader\SuperReader;
 use Kristos80\SuperReader\Tests\TestBase;
+use Kristos80\SuperReader\SuperReaderInterface;
 
 abstract class SuperReaderTester extends TestBase {
 
@@ -46,7 +47,8 @@ abstract class SuperReaderTester extends TestBase {
 	 * @return string
 	 */
 	protected function getPrefix(): string {
-		return $this->getFrom() !== "env" ? strtoupper($this->getFrom()) . "_" : "";
+		return ($this->getFrom() !== SuperReaderInterface::ENV && $this->getFrom() !== SuperReaderInterface::ANY_SUPER_GLOBAL) ?
+			strtoupper($this->getFrom()) . "_" : "";
 	}
 
 	/**
@@ -81,6 +83,13 @@ abstract class SuperReaderTester extends TestBase {
 
 		$false = $this->superReader->equals(["{$this->getPrefix()}test_variable"], "no_value");
 		$this->assertFalse($false);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFull(): void {
+		$this->assertIsArray($this->superReader->getFull());
 	}
 
 	/**
@@ -241,29 +250,35 @@ abstract class SuperReaderTester extends TestBase {
 		parent::setUp();
 		$this->superReader = new SuperReader();
 		$this->superReader->from($this->getFrom());
-		if($this->getFrom() === "get") {
+
+		if($this->getFrom() === SuperReaderInterface::GET) {
 			$_GET = [];
 			$_GET = $this->setValues($_ENV);
 		}
 
-		if($this->getFrom() === "post") {
+		if($this->getFrom() === SuperReaderInterface::POST) {
 			$_POST = [];
 			$_POST = $this->setValues($_ENV);
 		}
 
-		if($this->getFrom() === "server") {
+		if($this->getFrom() === SuperReaderInterface::SERVER) {
 			$server = $this->setValues($_ENV);
 			$_SERVER = array_merge($server, $_SERVER);
 		}
 
-		if($this->getFrom() === "cookie") {
+		if($this->getFrom() === SuperReaderInterface::COOKIE) {
 			$cookie = $this->setValues($_ENV);
 			$_COOKIE = array_merge($cookie, $_COOKIE);
 		}
 
-		if($this->getFrom() === "session") {
+		if($this->getFrom() === SuperReaderInterface::SESSION) {
 			$session = $this->setValues($_ENV);
 			$_SESSION = array_merge($session, $_SESSION ?? []);
+		}
+
+		if($this->getFrom() === "array") {
+			$array = $this->setValues($_ENV);
+			$this->superReader->from($array);
 		}
 	}
 
@@ -280,4 +295,5 @@ abstract class SuperReaderTester extends TestBase {
 
 		return $newSuper;
 	}
+
 }

@@ -38,13 +38,43 @@ interface SuperReaderInterface {
 	/**
 	 *
 	 */
-	public const PHP_INPUT = "php://input";
+	public const STDIN = "stdin";
 
 	/**
-	 * @param string $from
+	 *
+	 */
+	public const ANY_SUPER_GLOBAL = "any_super_global";
+
+	/**
+	 *
+	 */
+	public const CAST_INT = "integer";
+
+	/**
+	 *
+	 */
+	public const CAST_FLOAT = "float";
+
+	/**
+	 *
+	 */
+	public const CAST_STRING = "string";
+
+	/**
+	 *
+	 */
+	public const CAST_ARRAY = "array";
+
+	/**
+	 *
+	 */
+	public const CAST_OBJECT = "object";
+
+	/**
+	 * @param string|iterable $from
 	 * @return self
 	 */
-	public function from(string $from = self::GET): self;
+	public function from(string|iterable $from = self::GET): self;
 
 	/**
 	 * @SuppressWarnings("BooleanArgumentFlag")
@@ -56,11 +86,9 @@ interface SuperReaderInterface {
 	public function equals(string|array $possibleKeyNames, mixed $possibleValues, bool $strict = FALSE): bool;
 
 	/**
-	 * @param string $input
-	 * @param string|null $cast
-	 * @return mixed
+	 * @return iterable
 	 */
-	public function getFromInput(string $input = self::PHP_INPUT, ?string $cast = NULL): mixed;
+	public function getFull(): iterable;
 
 	/**
 	 * @SuppressWarnings("BooleanArgumentFlag")

@@ -3,13 +3,15 @@ declare(strict_types=1);
 
 namespace Kristos80\SuperReader\Tests\Unit;
 
+use Kristos80\SuperReader\SuperReaderInterface;
+
 final class EnvReaderTest extends SuperReaderTester {
 
 	/**
 	 * @return string
 	 */
 	function getFrom(): string {
-		return "env";
+		return SuperReaderInterface::ENV;
 	}
 
 	/**

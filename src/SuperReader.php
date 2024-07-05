@@ -6,15 +6,15 @@ namespace Kristos80\SuperReader;
 final class SuperReader implements SuperReaderInterface {
 
 	/**
-	 * @var string
+	 * @var string|iterable
 	 */
-	private string $from = self::GET;
+	private string|iterable $from = self::GET;
 
 	/**
-	 * @param string $from
+	 * @param string|iterable $from
 	 * @return SuperReaderInterface
 	 */
-	public function from(string $from = self::GET): SuperReaderInterface {
+	public function from(string|iterable $from = self::GET): SuperReaderInterface {
 		$this->from = $from;
 
 		return $this;
@@ -65,7 +65,7 @@ final class SuperReader implements SuperReaderInterface {
 		};
 
 		foreach($possibleKeyNames as $possibleKeyName) {
-			foreach($this->getSuperGlobal() as $keyName => $value) {
+			foreach($this->getFull() as $keyName => $value) {
 				if($manipulationFn($possibleKeyName) === $manipulationFn($keyName)) {
 					$default = $value;
 				}
@@ -81,17 +81,44 @@ final class SuperReader implements SuperReaderInterface {
 
 	/**
 	 * @SuppressWarnings("Superglobals)
-	 * @return array
+	 * @return iterable
 	 */
-	private function getSuperGlobal(): array {
-		return match ($this->from) {
-			self::ENV => $_ENV,
-			self::POST => $_POST,
-			self::SERVER => $_SERVER,
-			self::COOKIE => $_COOKIE,
-			self::SESSION => $_SESSION ?? [],
-			default => $_GET,
-		};
+	public function getFull(): iterable {
+		$data = [];
+
+		if(is_iterable($this->from)) {
+			return $this->from;
+		}
+
+		switch($this->from) {
+			case self::GET:
+				$data = $_GET;
+			break;
+			case self::POST:
+				$data = $_POST;
+			break;
+			case self::ENV;
+				$data = $_ENV;
+			break;
+			case self::COOKIE:
+				$data = $_COOKIE ?? [];
+			break;
+			case self::SESSION:
+				$data = $_SESSION ?? [];
+			break;
+			case self::SERVER:
+				$data = $_SERVER ?? [];
+			break;
+			case self::ANY_SUPER_GLOBAL:
+				$data = array_merge($_GET,
+					$_POST,
+					$_ENV,
+					$_COOKIE ?? [],
+					$_SESSION ?? []);
+			break;
+		}
+
+		return $data;
 	}
 
 	/**
@@ -100,12 +127,12 @@ final class SuperReader implements SuperReaderInterface {
 	 * @return mixed
 	 */
 	private function cast(string $value, string $cast): mixed {
-		if($cast === "array") {
+		if($cast === self::CAST_ARRAY) {
 			$value = json_decode($value, TRUE);
 			$cast = NULL;
 		}
 
-		if($cast === "object") {
+		if($cast === self::CAST_OBJECT) {
 			$value = (object) json_decode($value, TRUE);
 			$cast = NULL;
 		}
@@ -149,22 +176,4 @@ final class SuperReader implements SuperReaderInterface {
 		return $value;
 	}
 
-	/**
-	 * @param string $input
-	 * @param string|null $cast
-	 * @return mixed
-	 */
-	public function getFromInput(string $input = self::PHP_INPUT, ?string $cast = NULL): mixed {
-		$raw = file_get_contents($input);
-
-		if(!$raw) {
-			return NULL;
-		}
-
-		if($cast) {
-			$raw = $this->cast($raw, $cast);
-		}
-
-		return $raw;
-	}
 }

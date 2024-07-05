@@ -3,13 +3,15 @@ declare(strict_types=1);
 
 namespace Kristos80\SuperReader\Tests\Unit;
 
+use Kristos80\SuperReader\SuperReaderInterface;
+
 final class ServerReaderTest extends SuperReaderTester {
 
 	/**
 	 * @return string
 	 */
 	function getFrom(): string {
-		return "server";
+		return SuperReaderInterface::SERVER;
 	}
 
 }

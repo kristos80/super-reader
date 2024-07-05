@@ -5,13 +5,13 @@ namespace Kristos80\SuperReader\Tests\Unit;
 
 use Kristos80\SuperReader\SuperReaderInterface;
 
-final class GetReaderTest extends SuperReaderTester {
+final class AnyReaderTest extends SuperReaderTester {
 
 	/**
 	 * @return string
 	 */
 	function getFrom(): string {
-		return SuperReaderInterface::GET;
+		return SuperReaderInterface::ANY_SUPER_GLOBAL;
 	}
 
 }
