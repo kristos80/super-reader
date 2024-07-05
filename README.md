@@ -48,10 +48,12 @@ $superReader = new SuperReader();
 $superReader->from(SuperReader::POST);
 
 // Retrieve a variable with optional strict comparison and type casting
-$userInput = $superReader->get('user_input', 'default_value', true, 'string');
+$userInput = $superReader->get(['user_input', 'user-input'], 'default_value', true, 'string');
 
 // Check if a superglobal value matches one of the possible values
 $isAdmin = $superReader->equals('user_role', ['admin', 'superadmin'], true);
+// or
+$isAdmin = $superReader->equals(['user_role', 'user-role'], ['admin', 'superadmin'], true);
 
 // Retrieve raw input from php://input and cast it to an array
 $jsonInput = $superReader->getFromInput(SuperReader::STDIN, 'array');
